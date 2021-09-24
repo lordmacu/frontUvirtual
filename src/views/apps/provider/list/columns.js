@@ -171,9 +171,9 @@ export const columns = [
     selector: "phone",
     sortable: true,
     cell: (row) => {
-      if (!!row.startDate) {
+      if (!!row.phone) {
         return (
-          <span className="text-capitalize">{formatDate(row.phone)}</span>
+          <span className="text-capitalize">{row.phone}</span>
         )
       } else {
         return <span className="text-capitalize">Ninguno</span>

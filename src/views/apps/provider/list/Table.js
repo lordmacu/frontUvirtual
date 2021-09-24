@@ -89,7 +89,7 @@ const List = () => {
  
 
   useEffect(() => {
-console.log("se eta pichando aqui")
+//console.log("se eta pichando aqui")
     if (store.isEdit !== 0) {
       showEdit(store.rowData)
     }
@@ -121,7 +121,7 @@ console.log("se eta pichando aqui")
 
         page: currentPage,
         perPage: value,
-         sort: "_id",
+        sort: "_id",
         sortDirection: "desc",
         q: searchTerm
       })

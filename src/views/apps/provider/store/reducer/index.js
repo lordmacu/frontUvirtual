@@ -8,7 +8,11 @@ const initialState = {
   showView: false,
   params: {},
   selectedItem: null,
+  selectedCity: null,
+  selectedCityLocal: null,
+  selectedCountry: null,
   types: [],
+  cities:[],
   countries: [],
   statuses: []
 }
@@ -29,6 +33,8 @@ const items = (state = initialState, action) => {
       return { ...state, statuses: action.data.items }
     case 'GET_ALL_COUNTRIES':
         return { ...state, countries: action.data.items}
+    case 'GET_ALL_CITIES':
+      return { ...state, cities: action.data.items}
     case "GET_DATA":
       return {
         ...state,
@@ -40,6 +46,16 @@ const items = (state = initialState, action) => {
       return { ...state, selectedItem: action.selectedItem }
     case "ADD_ITEM":
       return { ...state }
+    case "ADD_SELECTED_COUNTRY":
+        return { ...state, selectedCountry: action.payload}
+    case "ADD_SELECTED_CITY":
+        return { ...state, selectedCity: action.payload}
+    case "DELETE_SELECTED_COUNTRY":
+      return { ...state, selectedCountry: action.payload}
+    case "DELETE_SELECTED_CITY":
+        return { ...state, selectedCity: action.payload}
+    case "ADD_SELECTED_CITY_LOCAL":
+      return { ...state, selectedCityLocal: action.payload}
     case "DELETE_ITEM":
       return { ...state }
     default:

@@ -19,6 +19,51 @@ export const addImage = (image) => {
   }
 }
 
+export const selectedCountryAdd = (val) => {
+  return async (dispatch) => {
+    dispatch({
+      type: "ADD_SELECTED_COUNTRY",
+      payload: val
+    })
+  }
+}
+
+export const deleteSelectedCountry = (val) => {
+  return async (dispatch) => {
+    dispatch({
+      type: "DELETE_SELECTED_COUNTRY",
+      payload: null
+    })
+  }
+}
+
+export const selectedCityAdd = (val) => {
+  return async (dispatch) => {
+    dispatch({
+      type: "ADD_SELECTED_CITY",
+      payload: val
+    })
+  }
+}
+
+export const deleteSelectedCity = (val) => {
+  return async (dispatch) => {
+    dispatch({
+      type: "DELETE_SELECTED_CITY",
+      payload: null
+    })
+  }
+}
+
+export const selectedCityLocal = (val) => {
+  return async (dispatch) => {
+    dispatch({
+      type: "ADD_SELECTED_CITY_LOCAL",
+      payload: val
+    })
+  }
+}
+
 export const getAllTypes = (params) => {
   return async (dispatch) => {
     await axios.post(`${baseUrl}types/get`, params).then((response) => {
@@ -44,7 +89,7 @@ export const getAllStatuses = (params) => {
 // ** Get data on page or row change
 export const getData = (params) => {
   return async (dispatch) => {
-    await axios.post(`${baseUrl}providers/get`, params).then((response) => {
+    await axios.post(`${baseUrl}providersBooks/get`, params).then((response) => {
       dispatch({
         type: "GET_DATA",
         data: response.data.docs,
@@ -59,7 +104,7 @@ export const getData = (params) => {
 export const getItem = (id) => {
   return async (dispatch) => {
     await axios
-      .get(`${baseUrl}providers/get/${id}`)
+      .get(`${baseUrl}providersBooks/get/${id}`)
       .then((response) => {
         dispatch({
           type: "GET_ITEM",
@@ -74,7 +119,7 @@ export const getItem = (id) => {
 export const addItem = (item) => {
   return (dispatch, getState) => {
     axios
-      .post(`${baseUrl}providers/create`, item)
+      .post(`${baseUrl}providersBooks/create`, item)
       .then((response) => {
         dispatch({
           type: "ADD_ITEM",
@@ -97,6 +142,45 @@ export const getAllCountries = (params) => {
         data: response.data
       })
     })
+    //console.log(response)
+  }
+}
+
+export const getAllCountriesSelect = () => {
+  return async dispatch => {
+    
+    await axios.get(`${baseUrl}countries/getAll`).then(response => {
+       dispatch({
+        type: 'GET_ALL_COUNTRIES',
+        data: response.data
+      })
+    })
+    //console.log(response)
+  }
+}
+export const getAllCities = (params) => {
+  return async dispatch => {
+    
+    await axios.post(`${baseUrl}cities/get`, params).then(response => {
+       dispatch({
+        type: 'GET_ALL_CITIES',
+        data: response.data
+      })
+    })
+    //console.log(response)
+  }
+}
+
+export const getAllCitiesSelect = () => {
+  return async dispatch => {
+    
+    await axios.get(`${baseUrl}cities/getAll`).then(response => {
+       dispatch({
+        type: 'GET_ALL_CITIES',
+        data: response.data
+      })
+    })
+    //console.log(response)
   }
 }
 
@@ -104,7 +188,7 @@ export const getAllCountries = (params) => {
 export const udpateItem = (item, props) => {
   return (dispatch, getState) => {
     axios
-      .put(`${baseUrl}providers/update/${item.id}`, item)
+      .put(`${baseUrl}providersBooks/update/${item.id}`, item)
       .then((response) => {
  
         dispatch(getItem(null))
@@ -120,7 +204,7 @@ export const udpateItem = (item, props) => {
 export const deleteItem = (id) => {
   return (dispatch, getState) => {
     axios
-      .delete(`${baseUrl}providers/remove/${id}`, { id })
+      .delete(`${baseUrl}providersBooks/remove/${id}`, { id })
       .then((response) => {
         dispatch({
           type: "DELETE_ITEM"
@@ -135,7 +219,7 @@ export const deleteItem = (id) => {
 export const cloneItem = (id) => {
   return (dispatch, getState) => {
     axios
-      .post(`${baseUrl}providers/clone`, { id })
+      .post(`${baseUrl}providersBooks/clone`, { id })
       .then((response) => {
         console.log(response.data)
         dispatch(setEditOn(Math.random(), response.data.items))

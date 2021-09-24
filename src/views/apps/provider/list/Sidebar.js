@@ -1,16 +1,11 @@
 // ** React Import
 import { useState, useEffect } from "react"
-import InputPasswordToggle from "@components/input-password-toggle"
 import { useDispatch, useSelector } from "react-redux"
 
 // ** Custom Components
 import Sidebar from "@components/sidebar"
 
 import Select from "react-select"
-import Uppy from "@uppy/core"
-const XHRUpload = require("@uppy/xhr-upload")
-
-import { DragDrop } from "@uppy/react"
 
 // ** Utils
 import { getImageUser } from "@utils"
@@ -25,27 +20,25 @@ import {
   Label,
   Form,
   Input,
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
-  TabPane,
   Col,
   Row
 } from "reactstrap"
-import { useForm, Controller } from "react-hook-form"
+import { useForm } from "react-hook-form"
 
 // ** Store & Actions
 import {
   addItem,
-  addImage,
   udpateItem,
-  getAllTypes,
-  getAllStatuses,
-  getAllCountries
+  getAllCountriesSelect,
+  getAllCitiesSelect,
+  selectedCountryAdd,
+  selectedCityLocal,
+  selectedCityAdd,
+  deleteSelectedCity,
+  deleteSelectedCountry
 } from "../store/action"
 
-const SidebarNewItems = ({ open, toggleSidebar }) => {
+ const SidebarNewItems = ({ open, toggleSidebar }) => {
   // ** States
   const dispatch = useDispatch()
 
@@ -55,21 +48,12 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
 
   const [name, setName] = useState("")
 
-  const [sigla, setSigla] = useState("")
-
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(new Date())
-
-  const [startDateDefault, setStartDateDefault] = useState(new Date())
-  const [endDateDefault, setEndDateDefault] = useState(new Date())
-  const [selectedCountry, setSelectedCountry] = useState("1")
-  const [country, setCountry] = useState("1")
-
   const [id, setId] = useState(0)
-
+  
   const [contactForm, setContactForm] = useState(null)
   const [address, setAddress] = useState(null)
-  const [city, setCity] = useState(null)
+  const [country, setCountry] = useState("1")
+  const [city, setCity] = useState("1")
   const [phone, setPhone] = useState(null)
   const [email, setEmail] = useState(null)
   const [web, setWeb] = useState(null)
@@ -77,26 +61,39 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
   const { register, errors, handleSubmit, control, trigger } = useForm({
     defaultValues: { dob: new Date() }
   })
+  //Country
 
-  const getCountry = (val) => {
-    if (val.length > 3) {
-      dispatch(
-        getAllCountries({
-          q: val
+  const optionCitySelected = []
+
+  const setCityHandle = (country) => {
+      if (country) {
+        const cities = store.cities
+        cities.map((city) => {
+          if (city.value === country.value) {
+            optionCitySelected.push(city)
+          }
         })
-      )
-    }
+        dispatch(selectedCityLocal(optionCitySelected))
+      }
+
   }
 
-  const selectCountry = (val) => {
-    getCountry(val)
+  const setCountrySelect = (e) => { 
+    dispatch(selectedCountryAdd(e)) 
+    setCountry(e)
+    setCityHandle(e)
   }
 
-  const selectedItemCountry = (val) => {
-    setSelectedCountry(val)
-    setCountry(val)
+  const handleChangeCountry = (e) => {
+    setCountrySelect(e)
   }
 
+  const handleChangeCity = (e) => {
+    dispatch(selectedCityAdd(e)) 
+    setCity(e)
+  }
+
+  //City
   useEffect(() => {
     if (!!store.rowData._id) {
       setId(store.rowData._id)
@@ -109,11 +106,39 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
       setWeb(store.rowData.web)
 
       if (!!store.rowData.country) {
+
+        const countries = store.countries
+        countries.map((country) => {
+            if (country.label === store.rowData.country.name) {
+            const e = { value: store.rowData.country.codeCountry, label: store.rowData.country.name, _id: store.rowData.country._id }
+            setCountrySelect(e)
+            } 
+        })
+        
         const statusLocal = store.rowData.country
         statusLocal.label = statusLocal.name
         setCountry(statusLocal)
       }
+      if (!!store.rowData.city) {
+        
+        const statusLocalCity = store.rowData.city
+        statusLocalCity.label = statusLocalCity.name
+        setCity(statusLocalCity)
+      }
     } else {
+      setName('')
+      setContactForm('')
+      setAddress('')
+      setCity('')
+      setPhone('')
+      setEmail('')
+      setWeb('')
+      setCity('')
+      setCountry('')
+      dispatch(getAllCountriesSelect())
+      dispatch(getAllCitiesSelect())
+      dispatch(deleteSelectedCity())
+      dispatch(deleteSelectedCountry())
       setId(0)
     }
   }, [dispatch, store.isEdit])
@@ -137,22 +162,24 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
   // ** Vars
 
   // ** Function to handle form submit
-  const onSubmit = (values) => {
+  const onSubmit = (values, e) => {
     values["country"] = country._id
- 
-    values["active"] = true
+    values["city"] = city._id
+    values["status"] = true
+    values["idPlatform"] = store.rowData.idPlatform
     values["id"] = id
-    console.log(values)
+    //console.log(values)
 
    toggleSidebar()
 
     if (id === 0) {
+      //console.log('Guardar')
       dispatch(addItem(values))
     } else {
       dispatch(udpateItem(values))
     }
   }
-  //// falta fecha genero  pais curriculum
+
   return (
     <Sidebar
       size="lg"
@@ -173,6 +200,7 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
                 name="name"
                 id="name"
                 defaultValue={name}
+                //onChange= { handleInputChange }
                 placeholder="Ingresar el nombre"
                 innerRef={register({ required: true })}
                 className={classnames({ "is-invalid": errors["name"] })}
@@ -187,6 +215,7 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
               <Input
                 name="contactForm"
                 id="contactForm"
+                //onChange= { handleInputChange }
                 defaultValue={contactForm}
                 placeholder="Ingresar la persona de contacto"
                 innerRef={register({ required: true })}
@@ -205,6 +234,7 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
             id="address"
             type="textarea"
             autoComplete={0}
+            //onChange= { handleInputChange }
             defaultValue={address}
             placeholder="Ingresar la dirección"
             innerRef={register({ required: true })}
@@ -214,33 +244,34 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
 
         <Row>
           <Col>
-            <FormGroup>
-              <Label for="city">Ciudad: <span className="text-danger">*</span></Label>
-              <Input
-                name="city"
-                id="city"
-                autoComplete={0}
-                defaultValue={city}
-                type="text"
-                placeholder="Ingresar la ciudad"
-                innerRef={register({ required: true })}
-                className={classnames({ "is-invalid": errors["city"] })}
-              />
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
+          <FormGroup>
               <Label for="country">País: <span className="text-danger">*</span></Label>
               <Select
+                name="country"
+                id="country"
                 isClearable
                 value={country}
                 options={store.countries}
-                onInputChange={selectCountry}
-                onChange={selectedItemCountry}
-                name="country"
-                id="country"
+                onChange={handleChangeCountry}
                 innerRef={register({ required: true })}
                 className={classnames({ "is-invalid": errors["country"] })}
+              />
+            </FormGroup>
+            
+          </Col>
+          <Col>
+          <FormGroup>
+              <Label for="city">Ciudad: <span className="text-danger">*</span></Label>
+              <Select
+                name="city"
+                id="city"
+                isClearable
+                value={city}
+                options={(store.selectedCityLocal) ? store.selectedCityLocal : store.cities}
+                onChange={handleChangeCity}
+                isDisabled = {!(store.selectedCountry)}
+                innerRef={register({ required: true })}
+                className={classnames({ "is-invalid": errors["city"] })}
               />
             </FormGroup>
           </Col>
@@ -255,6 +286,7 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
             id="phone"
             autoComplete={0}
             defaultValue={phone}
+            //onChange= { handleInputChange }
             type="tel"
             placeholder="Ingresar el teléfono"
             innerRef={register({ required: true })}
@@ -273,6 +305,7 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
                 id="email"
                 autoComplete={0}
                 defaultValue={email}
+                //onChange= { handleInputChange }
                 type="email"
                 placeholder="Ingresar el email"
                 innerRef={register({ required: true })}
@@ -289,6 +322,7 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
                 id="web"
                 autoComplete={0}
                 defaultValue={web}
+                //onChange= { handleInputChange }
                 type="web"
                 placeholder="Ingresar el website"
                 innerRef={register({ required: true })}
