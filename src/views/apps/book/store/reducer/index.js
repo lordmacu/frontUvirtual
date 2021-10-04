@@ -10,7 +10,11 @@ const initialState = {
   selectedItem: null,
   types: [],
   countries: [],
-  statuses: []
+  statuses: [],
+  agreements: [],
+  applications: [],
+  providers: [],
+  formats: []
 }
 
 const items = (state = initialState, action) => {
@@ -28,7 +32,15 @@ const items = (state = initialState, action) => {
     case "GET_ALL_STATUSES":
       return { ...state, statuses: action.data.items }
     case 'GET_ALL_COUNTRIES':
-        return { ...state, countries: action.data.items}
+      return { ...state, countries: action.data.items }
+    case 'GET_ALL_FORMATS':
+      return { ...state, formats: action.data.items }
+    case 'GET_ALL_AGREEMENTS':
+      return { ...state, agreements: action.data.items }
+    case 'GET_ALL_PROVIDERS':
+      return { ...state, providers: action.data.items }
+    case 'GET_ALL_APPLICATIONS':
+      return { ...state, applications: action.data.items }
     case "GET_DATA":
       return {
         ...state,

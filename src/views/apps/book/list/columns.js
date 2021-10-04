@@ -110,75 +110,41 @@ export const columns = [
           <Trash2 size={14} />
         </Button.Ripple>
 
-        <Button.Ripple
-          className="btn-icon"
-          outline
-          color="info"
-          onClick={() => {
-            MySwal.fire({
-              title: "¿Quieres clonar este item?",
-              icon: "info",
-              customClass: {
-                confirmButton: "btn btn-danger"
-              },
-
-              buttonsStyling: true,
-              confirmButtonText: "Si, Clonarlo"
-            }).then((result) => {
-              if (result.isConfirmed) {
-                store.dispatch(cloneItem(row._id))
-              }
-            })
-          }}
-        >
-          <Copy size={14} />
-        </Button.Ripple>
+         
       </div>
     )
   },
   {
-    name: "Empresa",
+    name: "Autor",
     // minWidth: "70px",
     selector: "empresa",
     sortable: true,
-    cell: (row) => <span className="text-capitalize">{row.name}</span>
+    cell: (row) => <span className="text-capitalize">{row.author}</span>
   },
   {
-    name: "País",
+    name: "edición",
     minWidth: "40px",
-    selector: "country",
+    selector: "edition",
     sortable: true,
-    cell: (row) => {
-      if (!!row.country) {
-        return <span className="text-capitalize">{row.country.name}</span>
-      } else {
-        return <span></span>
-      }
-    }
+    cell: (row) => <span className="text-capitalize">{row.edition}</span>
+
   },
   {
-    name: "Persona Contacto",
+    name: "Publicación",
     minWidth: "200px",
-    selector: "contactForm",
+    selector: "publication",
     sortable: true,
-    cell: (row) => <span className="text-capitalize">{row.contactForm}</span>
+    cell: (row) => <span className="text-capitalize">{row.publication}</span>
   },
    
 
   {
-    name: "Teléfono",
+    name: "versión",
     minWidth: "40px",
-    selector: "phone",
+    selector: "version",
     sortable: true,
-    cell: (row) => {
-      if (!!row.startDate) {
-        return (
-          <span className="text-capitalize">{formatDate(row.phone)}</span>
-        )
-      } else {
-        return <span className="text-capitalize">Ninguno</span>
-      }
-    }
+    cell: (row) => <span className="text-capitalize">{row.version}</span>
+
   }
   
 ]

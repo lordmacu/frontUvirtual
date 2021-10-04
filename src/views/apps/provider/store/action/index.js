@@ -158,6 +158,20 @@ export const getAllCountriesSelect = () => {
     //console.log(response)
   }
 }
+
+export const getAllFormats = () => {
+  return async dispatch => {
+    
+    await axios.get(`${baseUrl}formats/getAll`).then(response => {
+       dispatch({
+        type: 'GET_ALL_FORMATS',
+        data: response.data
+      })
+    })
+    //console.log(response)
+  }
+}
+
 export const getAllCities = (params) => {
   return async dispatch => {
     

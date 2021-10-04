@@ -9,6 +9,57 @@ export const setEditOn = (val, row) => {
     dispatch({ type: "SET_EDIT_ON", data: val, rowData: row })
   }
 }
+export const getAllFormats = () => {
+  return async dispatch => {
+    
+    await axios.post(`${baseUrl}formats/getAll`).then(response => {
+       dispatch({
+        type: 'GET_ALL_FORMATS',
+        data: response.data
+      })
+    })
+    //console.log(response)
+  }
+}
+
+export const getAllApplication = () => {
+  return async dispatch => {
+    
+    await axios.post(`${baseUrl}aplications/getAll`).then(response => {
+       dispatch({
+        type: 'GET_ALL_APPLICATIONS',
+        data: response.data
+      })
+    })
+    //console.log(response)
+  }
+}
+
+export const getAllBookAgreements = () => {
+  return async dispatch => {
+    
+    await axios.post(`${baseUrl}bookAgreements/getAll`).then(response => {
+       dispatch({
+        type: 'GET_ALL_AGREEMENTS',
+        data: response.data
+      })
+    })
+    //console.log(response)
+  }
+}
+
+export const getAllProvidersBooks = () => {
+  return async dispatch => {
+    
+    await axios.post(`${baseUrl}providersBooks/getAll`).then(response => {
+       dispatch({
+        type: 'GET_ALL_PROVIDERS',
+        data: response.data
+      })
+    })
+    //console.log(response)
+  }
+}
 
 export const addImage = (image) => {
   return async (dispatch) => {

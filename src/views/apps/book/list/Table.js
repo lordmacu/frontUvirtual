@@ -33,7 +33,7 @@ const List = () => {
 
   // ** States
   const [searchTerm, setSearchTerm] = useState('')
-  const [columnsSearch, setColumnsSearch] = useState(["name", "sigla"])
+  const [columnsSearch, setColumnsSearch] = useState(["title", "author", "edition", "web"])
   const [currentPage, setCurrentPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [sidebarOpen, setSidebarOpen] = useState(false)
