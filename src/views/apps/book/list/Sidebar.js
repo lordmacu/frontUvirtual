@@ -191,11 +191,11 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
         })
       }
 
-         if (!!store.rowData.providersBook) {
+         if (!!store.rowData.provider) {
         setProvider({
-          value: store.rowData.providersBook._id,
-          label: store.rowData.providersBook.name,
-          id: store.rowData.providersBook._id
+          value: store.rowData.provider._id,
+          label: store.rowData.provider.name,
+          id: store.rowData.provider._id
         })
       }
  
@@ -246,7 +246,7 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
     values["format"] = format._id
     values["aplication"] = application._id
     values["bookAgreement"] = agreements._id
-    values["providersBook"] = provider._id
+    values["provider"] = provider._id
 
     values["active"] = true
 
