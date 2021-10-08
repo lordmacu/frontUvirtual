@@ -10,7 +10,7 @@ const MySwal = withReactContent(Swal)
 import Avatar from "@components/avatar"
 
 // ** Store & Actions
-import { getItem, deleteItem, setEditOn, cloneItem, setPopUpTeacher, getAllTutors, setPopUpStudent } from "../store/action"
+import { getItem, deleteItem, setEditOn, cloneItem, setPopUpTeacher,  setPopUpStudent } from "../store/action"
 import { store } from "@store/storeConfig/store"
 
 // ** Third Party Components
@@ -90,7 +90,7 @@ export const columns = [
           outline
           color="primary"
           onClick={() => {
-            store.dispatch(getAllTutors())
+            //store.dispatch(getAllTutors())
             store.dispatch(setPopUpTeacher(true, row))
           }}
         >

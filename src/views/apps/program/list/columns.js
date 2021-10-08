@@ -140,7 +140,7 @@ export const columns = [
         <div className="d-flex flex-column">
           <Link
             to={`/apps/program/view/${row._id}`}
-            className="user-name text-truncate mb-0"
+            // className="user-name text-truncate mb-0"
             onClick={() => store.dispatch(getItem(row._id))}
           >
             <span className="font-weight-bold">{row.name}</span>

@@ -55,6 +55,7 @@ const List = () => {
   const toggle = () => setModalAsignatura(!modalAsignatura)
   // ** Function to toggle sidebar
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
+  
 
   // ** Get data on mount
   useEffect(() => {
