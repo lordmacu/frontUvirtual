@@ -11,6 +11,7 @@ import programs from '@src/views/apps/program/store/reducer'
 import subjects from '@src/views/apps/subject/store/reducer'
 import providers from '@src/views/apps/provider/store/reducer'
 import books from '@src/views/apps/book/store/reducer'
+import people from '@src/views/apps/people/store/reducer'
  
 
 const rootReducer = combineReducers({
@@ -21,8 +22,8 @@ const rootReducer = combineReducers({
   layout,
   subjects,
   providers,
-  books
-   
+  books,
+  people
   })
 
 export default rootReducer

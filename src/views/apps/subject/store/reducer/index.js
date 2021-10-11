@@ -28,8 +28,8 @@ const items = (state = initialState, action) => {
       return { ...state, userImage: action.data }
     case 'SET_ITEM_VERSION':
       return { ...state, version: action.data }
-        case 'GET_ALL_TUTORS':
-      return { ...state, tutors: action.data.items }
+      //   case 'GET_ALL_TUTORS':
+      // return { ...state, tutors: action.data.items }
     
     case 'GET_ALL_DATA':
         return { ...state, allData: action.data.people }

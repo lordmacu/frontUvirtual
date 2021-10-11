@@ -14,7 +14,9 @@ const initialState = {
   people: [],
   popUpAsignatura: false,
   currentProgram: null,
-  subjects:[]
+  subjects:[],
+  directoresAcad: [],
+  coordinadoresAcad: []
 }
 
 const items = (state = initialState, action) => {
@@ -48,6 +50,10 @@ const items = (state = initialState, action) => {
       return { ...state, selectedItem: action.selectedItem }
     case 'ADD_ITEM':
       return { ...state }
+    case 'GET_ALL_COORDINADORES':
+      return { ...state, coordinadoresAcad: action.payload }
+    case 'GET_ALL_DIRECTORES':
+      return { ...state, directoresAcad: action.payload }
     case 'DELETE_ITEM':
       return { ...state }
     default:

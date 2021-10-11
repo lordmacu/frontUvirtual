@@ -124,17 +124,17 @@ export const getAllTypes = (params) => {
   }
 }
 
-export const getAllTutors = (params) => {
-  return async (dispatch) => {
-    await axios.post(`${baseUrl}tutors/getAll`, params).then((response) => {
-      dispatch({
-        type: "GET_ALL_TUTORS",
-        data: response.data
+// export const getAllTutors = (params) => {
+//   return async (dispatch) => {
+//     await axios.post(`${baseUrl}tutors/getAll`, params).then((response) => {
+//       dispatch({
+//         type: "GET_ALL_TUTORS",
+//         data: response.data
         
-      })
-    })
-  }
-}
+//       })
+//     })
+//   }
+// }
 
 
 export const getAllStatuses = (params) => {

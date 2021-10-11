@@ -28,6 +28,7 @@ import {
 } from 'reactstrap'
 
 import '@styles/base/pages/page-auth.scss'
+import { getAllCoordinadores, getAllDirectores, getAllStudents, getAllTutors } from '../../apps/people/store/action'
 
 const ToastContent = ({ name, role }) => (
   <Fragment>
@@ -62,6 +63,11 @@ const Login = props => {
         .then(res => {
           const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
           dispatch(handleLogin(data))
+          //Get people by typePerson
+          dispatch(getAllTutors())
+          dispatch(getAllStudents())
+          dispatch(getAllDirectores())
+          dispatch(getAllCoordinadores())
           ability.update(res.data.userData.ability)
           history.push(getHomeRouteForLoggedInUser(data.role))
           toast.success(
