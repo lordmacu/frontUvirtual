@@ -180,16 +180,18 @@ export const columns = [
     selector: "name",
     sortable: true,
     cell: (row) => (
-      <div className="d-flex justify-content-left align-items-center">
+    
+         <div className="d-flex justify-content-left align-items-center">
         <div className="d-flex flex-column">
+
           <Link
             to={`/apps/subject/view/${row._id}`}
-            className="user-name text-truncate mb-0"
+            // className="user-name text-truncate mb-0"
             onClick={() => store.dispatch(getItem(row._id))}
           >
             <span className="font-weight-bold">{row.name}</span>
           </Link>
-       
+         
         </div>
       </div>
     )
