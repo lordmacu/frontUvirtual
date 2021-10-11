@@ -286,8 +286,6 @@ const ItemEdit = (props) => {
     dispatch(getAllVersions(id))
 
     dispatch(getItem(id))
-
-    
     
   }, [dispatch])
   return stores.selectedItem !== null && stores.selectedItem !== undefined ? (
