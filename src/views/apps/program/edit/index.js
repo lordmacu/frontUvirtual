@@ -102,7 +102,6 @@ const ItemEdit = (props) => {
 
   useEffect(() => {
     if (!!store.selectedItem) {
-      dispatch(getAllVersions(id))
 
       // setId(store.selectedItem._id)
       setName(store.selectedItem.name)
@@ -279,13 +278,17 @@ const ItemEdit = (props) => {
     setVersions((versions) => versions.concat({ name: "version", index: 1 }))
     setVersions((versions) => versions.concat({ name: "version", index: 2 }))
     setVersions((versions) => versions.concat({ name: "version", index: 3 }))
-    dispatch(getItem(id))
-
     dispatch(
         getAllAggrements({
           q: ""
         })
-      )
+    )
+    dispatch(getAllVersions(id))
+
+    dispatch(getItem(id))
+
+    
+    
   }, [dispatch])
   return stores.selectedItem !== null && stores.selectedItem !== undefined ? (
     <Row className="app-user-edit">
