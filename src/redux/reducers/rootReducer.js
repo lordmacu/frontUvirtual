@@ -12,7 +12,8 @@ import subjects from '@src/views/apps/subject/store/reducer'
 import providers from '@src/views/apps/provider/store/reducer'
 import books from '@src/views/apps/book/store/reducer'
 import people from '@src/views/apps/people/store/reducer'
- 
+import resources from '@src/views/apps/resource/store/reducer'
+
 
 const rootReducer = combineReducers({
   auth,
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   subjects,
   providers,
   books,
-  people
+  people,
+  resources
   })
 
 export default rootReducer

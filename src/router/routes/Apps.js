@@ -118,6 +118,10 @@ const AppRoutes = [
       navLink: "/apps/provider/view"
     }
   },
+  {
+    path: "/apps/resource/list",
+    component: lazy(() => import("../../views/apps/resource/list"))
+  },
 
    {
     path: "/apps/books/list",
