@@ -43,6 +43,7 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
   const dispatch = useDispatch()
 
   const store = useSelector((state) => state.users)
+  const newData = useSelector((state) => state.programs.newData)
 
   const baseUrl = "http://localhost:3000/api/"
 
@@ -158,10 +159,6 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
   const selectedItemCountry = (val) => {
     setSelectedCountry(val)
     setCountry(val)
-  }
-
-  const changeCurriculum = (val) => {
-    setCurriculum(val)
   }
 
   const titlePanel = (val) => {

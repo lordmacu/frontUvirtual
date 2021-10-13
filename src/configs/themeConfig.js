@@ -7,7 +7,7 @@ const themeConfig = {
     appLogoImage: require('@src/assets/images/logo/logo.png').default
   },
   apiUrl:"http://localhost:8081/api/",
-  apiUrlNormal:"http://localhost:8081:8081/",
+  apiUrlNormal:"http://localhost:8081/",
   apiUrlImage:"http://localhost:3000/uploads/", 
   layout: { 
     isRTL: false,
