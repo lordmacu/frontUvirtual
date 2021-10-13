@@ -49,17 +49,19 @@ const List = () => {
   // ** Get data on mount
   useEffect(() => {
  
-    dispatch(
-      getData({
-        columns:columnsSearch,
-        page: currentPage,
-        perPage: rowsPerPage,
-        role: currentRole.value,
-        currentPlan: currentPlan.value,
-        status: currentStatus.value,
-        q: searchTerm
-      })
-    )
+    if (store.data.length === 0) {
+      dispatch(
+        getData({
+          columns:columnsSearch,
+          page: currentPage,
+          perPage: rowsPerPage,
+          role: currentRole.value,
+          currentPlan: currentPlan.value,
+          status: currentStatus.value,
+          q: searchTerm
+        })
+        )
+       }
   }, [dispatch, store.data.length])
 
 

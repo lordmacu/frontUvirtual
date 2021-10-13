@@ -209,11 +209,7 @@ const ItemEdit = (props) => {
       setPresupuesto("")
     }
 
-    dispatch(
-        getAllAggrements({
-          q: ""
-        })
-      )
+    
   }, [dispatch, store.selectedItem])
 
   // ** Store Vars
@@ -382,7 +378,15 @@ const ItemEdit = (props) => {
     setVersions((versions) => versions.concat({ name: "version", index: 1 }))
     setVersions((versions) => versions.concat({ name: "version", index: 2 }))
     setVersions((versions) => versions.concat({ name: "version", index: 3 }))
+    dispatch(
+        getAllAggrements({
+          q: ""
+        })
+    )
+    dispatch(getAllVersions(id))
+
     dispatch(getItem(id))
+    
   }, [dispatch])
   return stores.selectedItem !== null && stores.selectedItem !== undefined ? (
     <Row className="app-user-edit">

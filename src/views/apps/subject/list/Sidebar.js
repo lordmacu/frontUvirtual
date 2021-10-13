@@ -88,8 +88,9 @@ const SidebarNewItems = ({ open, toggleSidebar }) => {
       setName(store.rowData.name)
       setSigla(store.rowData.sigla)
 
-      const statusLocal = store.rowData.status
+      const statusLocal = store.rowData.statusSubject
       if (!!statusLocal) {
+        console.log("aaquiiii esta el status oocal ", store.rowData) 
         statusLocal.label = statusLocal.name
       }
       setStatus(statusLocal)
