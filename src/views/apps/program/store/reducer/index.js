@@ -16,7 +16,8 @@ const initialState = {
   currentProgram: null,
   subjects:[],
   directoresAcad: [],
-  coordinadoresAcad: []
+  coordinadoresAcad: [],
+  newData: {}
 }
 
 const items = (state = initialState, action) => {
@@ -56,6 +57,10 @@ const items = (state = initialState, action) => {
       return { ...state, directoresAcad: action.payload }
     case 'DELETE_ITEM':
       return { ...state }
+    case 'ADD_NEWDATA':
+      return { ...state, newData: action.payload }
+    case 'DEL_NEWDATA':
+      return { ...state, newData: {} }
     default:
       return { ...state }
   }

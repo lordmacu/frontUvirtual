@@ -111,7 +111,7 @@ const versionItem = (props) => {
   }, [props.item])
 
   useEffect(() => {
-    console.log("asdfasdf asdf asdf asdf as ", store.version)
+    //console.log("asdfasdf asdf asdf asdf as ", store.version)
     if (store.version !== null) {
       MySwal.fire("Se ha actualizado con éxito", "", "info")
     }
@@ -134,7 +134,7 @@ const versionItem = (props) => {
         <Card>
           <CardBody>
             <Form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-              <FormGroup>
+              {/* <FormGroup>
                 <Label for="lastName">
                   Nombre <span className="text-danger">*</span>
                 </Label>
@@ -152,7 +152,7 @@ const versionItem = (props) => {
                     "is-invalid": errors["lastName"]
                   })}
                 />
-              </FormGroup>
+              </FormGroup> */}
 
               <Row>
                 <Col>
@@ -214,17 +214,17 @@ const versionItem = (props) => {
                 <Col>
                   <FormGroup>
                     <Label for="year">
-                      Grupo: <span className="text-danger">*</span>
+                      Grupo: 
                     </Label>
                     <Input
                       name="group"
                       id="group"
                       autoComplete={0}
                       defaultValue={group}
-                      placeholder="Ingresar el año"
-                      innerRef={register({ required: true })}
+                      placeholder="Ingresar el grupo"
+                      //innerRef={register({ required: true })}
                       className={classnames({
-                        "is-invalid": errors["year"]
+                        "is-invalid": errors["group"]
                       })}
                     />
                   </FormGroup>
@@ -254,11 +254,14 @@ const versionItem = (props) => {
                 </Col>
                 <Col>
                   <FormGroup>
-                    <Label for="birth-date">Fecha fin</Label>
+                    <Label for="endDate">
+                        Fecha fin
+                        <span className="text-danger">*</span>
+                    </Label>
 
                     <Flatpickr
-                      name="birthday"
-                      id="birthday"
+                      name="endDate"
+                      id="endDate"
                       autoComplete={0}
                       defaultValue={endDateDefault}
                       value={endDate}

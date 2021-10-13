@@ -10,7 +10,7 @@ const MySwal = withReactContent(Swal)
 import Avatar from "@components/avatar"
 
 // ** Store & Actions
-import { getItem, deleteItem, setEditOn, cloneItem, setPopUpAsignatura} from "../store/action"
+import { getItem, deleteItem, setEditOn, cloneItem, setPopUpAsignatura, deleteVersion} from "../store/action"
 import { store } from "@store/storeConfig/store"
 
 // ** Third Party Components
@@ -111,6 +111,7 @@ export const columns = [
             }).then((result) => {
               if (result.isConfirmed) {
                 store.dispatch(deleteItem(row._id))
+                store.dispatch(deleteVersion(row._id))
               } else if (result.isDenied) {
                 MySwal.fire("Changes are not saved", "", "info")
               }

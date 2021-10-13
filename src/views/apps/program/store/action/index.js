@@ -29,6 +29,23 @@ export const addImage = (image) => {
     })
   }
 }
+
+export const addNewData = (data) => {
+  return async (dispatch) => {
+    dispatch({
+      type: "ADD_NEWDATA",
+      payload: data
+    })
+  }
+}
+
+export const delNewData = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: "DEL_NEWDATA"
+    })
+  }
+}
 // ** Get data on page or row change
 export const getData = (params) => {
   return async (dispatch) => {
@@ -202,7 +219,7 @@ export const udpateItem = (item, props) => {
       .put(`${baseUrl}programs/update/${item.id}`, item)
       .then((response) => {
         props.history.push("/apps/program/list")
-
+        //console.log('ID:', item.id)
         dispatch(getItem(null))
 
         dispatch(getData(getState().programs.params))

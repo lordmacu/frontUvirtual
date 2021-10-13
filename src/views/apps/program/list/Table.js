@@ -28,6 +28,7 @@ import { Card, Input, Row, Col, Label, CustomInput, Button, Modal, ModalHeader, 
 // ** Styles
 import '@styles/react/libs/react-select/_react-select.scss'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
+import { getAllCoordinadores, getAllDirectores } from '../../people/store/action'
 
 // ** Table Header
  
@@ -36,11 +37,12 @@ const List = () => {
   // ** Store Vars
   const dispatch = useDispatch()
   const store = useSelector(state => state.programs)
-
+  const directores = useSelector((state) => state.people.directores)
+  const coordinadores = useSelector((state) => state.people.coordinadores)
 
   // ** States
   const [searchTerm, setSearchTerm] = useState('')
-  const [columnsSearch, setColumnsSearch] = useState(["name", "gender", "city"])
+  const [columnsSearch, setColumnsSearch] = useState(["name", "sigla"])
   const [currentPage, setCurrentPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -56,21 +58,28 @@ const List = () => {
   // ** Function to toggle sidebar
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
   
+  // if (directores.length === 0 || coordinadores.length === 0) {
+  //   dispatch(getAllCoordinadores())
+  //   dispatch(getAllDirectores())
+  // }
 
   // ** Get data on mount
   useEffect(() => {
+    if (store.data.length === 0) {
+      // console.log('LONG', store.data.length)
+        dispatch(
+        getData({
+          columns:columnsSearch,
+          page: currentPage,
+          perPage: rowsPerPage,
+          role: currentRole.value,
+          currentPlan: currentPlan.value,
+          status: currentStatus.value,
+          q: searchTerm
+        })
+      )
+    }
  
-    dispatch(
-      getData({
-        columns:columnsSearch,
-        page: currentPage,
-        perPage: rowsPerPage,
-        role: currentRole.value,
-        currentPlan: currentPlan.value,
-        status: currentStatus.value,
-        q: searchTerm
-      })
-    )
   }, [dispatch, store.data.length])
 
 
@@ -282,8 +291,6 @@ const List = () => {
     setPopUpAsignatura(store.popUpAsignatura)
     //setTutorSelected(null)
     setCurrentProgram(store.currentProgram)
-
-    console.log("aqkfdasdf asdf asdf asdfasf ", store.currentProgram)
   }, [dispatch, store.popUpAsignatura])
   
 
